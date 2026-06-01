@@ -1,0 +1,24 @@
+[
+  {
+    "event_id": "evt_fc9a39438c",
+    "project_id": "proj_a4f6e75fba",
+    "entity_type": "project",
+    "entity_id": "proj_a4f6e75fba",
+    "event_type": "project_created",
+    "event_summary": "Created project Supabase Test Project",
+    "actor": "owner@example.com",
+    "timestamp": "2026-06-01T18:26:15+00:00",
+    "module_name": "projects"
+  },
+  {
+    "event_id": "evt_e3be77bb94",
+    "project_id": "proj_0380ff946b",
+    "entity_type": "project",
+    "entity_id": "proj_0380ff946b",
+    "event_type": "project_created",
+    "event_summary": "Created project Indianapolis, IN",
+    "actor": "owner@example.com",
+    "timestamp": "2026-06-01T18:36:19+00:00",
+    "module_name": "projects"
+  }
+]

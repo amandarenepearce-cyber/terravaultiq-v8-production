@@ -1,0 +1,13 @@
+{
+  "project_id": "proj_a4f6e75fba",
+  "project_name": "Supabase Test Project",
+  "account_name": "Midwest Horizons Marketing",
+  "created_by": "owner@example.com",
+  "created_at": "2026-06-01T18:26:15+00:00",
+  "updated_at": "2026-06-01T18:26:15+00:00",
+  "status": "active",
+  "notes": "test",
+  "tags": [
+    "homeowners"
+  ]
+}

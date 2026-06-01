@@ -85,7 +85,7 @@ def _client_export_df(df: pd.DataFrame) -> pd.DataFrame:
             return fn(df)
         except Exception:
             pass
-    preferred = ['name','business_type','search_keyword','source_zip','address','website','primary_email','secondary_email','email_found','email_source_url','email_confidence','contact_page_url','contact_form_found','primary_phone','phone','rating','ratings_total','needs_leads_score','needs_leads_tier','needs_leads_reason','ad_presence_status','pitch_opening_line','pitch_offer','pitch_cta']
+    preferred = ['name','business_type','search_keyword','source_zip','address','website','site_live','final_url','primary_email','secondary_email','email_found','email_source_url','email_confidence','contact_page_url','contact_form_found','pages_scanned','scan_error','primary_phone','phone','rating','ratings_total','needs_leads_score','needs_leads_tier','needs_leads_reason','ad_presence_status','pitch_opening_line','pitch_offer','pitch_cta']
     cols = [c for c in preferred if c in df.columns]
     return df[cols + [c for c in df.columns if c not in cols]].copy()
 
@@ -186,8 +186,8 @@ def render(user: dict, project: dict | None) -> None:
             st.text_input('Google API Key', type='password', key='google_api_key', help='Required for Google Places business searches. Uses GOOGLE_PLACES_API_KEY from secrets/env when available.')
             use_google = st.checkbox('Use Google API if available', value=True)
             use_osm = st.checkbox('Use OpenStreetMap backup', value=False, help='Placeholder from v7. Google is the active provider in this build.')
-            do_enrich = st.checkbox('Find website emails/contact pages', value=True, help='Scans homepage plus contact/about/team pages for public emails, contact forms, phones, and source URLs.')
-            enrich_limit = st.number_input('Max rows to enrich', min_value=0, max_value=5000, value=100, step=25)
+            do_enrich = st.checkbox('Find website emails/contact pages', value=True, help='Scans homepage plus contact/about/team/staff/location fallback pages for public emails, contact forms, phones, and source URLs. Slower but stronger.')
+            enrich_limit = st.number_input('Max rows to enrich', min_value=0, max_value=5000, value=250, step=25)
             do_score = st.checkbox('Score business leads', value=True)
             trim_results = st.checkbox('Trim final results', value=True)
             final_cap = st.selectbox('Final result cap', [100, 250, 500, 1000], index=1)
@@ -259,7 +259,7 @@ def render(user: dict, project: dict | None) -> None:
             c3.metric('With Email', _count_present(df, 'primary_email'))
             c4.metric('Hot Leads', _hot_count(df))
             if 'email_found' in df.columns:
-                st.caption(f"Email enrichment: {_count_present(df, 'primary_email')} emails found. Check primary_email, email_source_url, contact_page_url, and contact_form_found columns.")
+                st.caption(f"Email enrichment: {_count_present(df, 'primary_email')} emails found. Check primary_email, email_source_url, contact_page_url, contact_form_found, pages_scanned, and scan_error columns.")
             st.dataframe(df, use_container_width=True, hide_index=True, height=520)
             stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             d1, d2 = st.columns(2)
